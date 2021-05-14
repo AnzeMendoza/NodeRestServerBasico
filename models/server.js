@@ -1,18 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const dbConecction = require("../database/config");
-
+const fileUpload = require("express-fileUpload");
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
 
         this.path = {
-            auth:       "/api/auth",
-            buscar:     "/api/buscar",
+            auth: "/api/auth",
+            buscar: "/api/buscar",
             categorias: "/api/categorias",
-            productos:  "/api/productos",
-            usuarios:   "/api/usuarios",
+            productos: "/api/productos",
+            uploads: "/api/uploads",
+            usuarios: "/api/usuarios",
         };
 
         // conectar a BBDD
@@ -38,6 +39,15 @@ class Server {
 
         // Directorio publico
         this.app.use(express.static("public"));
+
+        // Fileupload - Carga de archivos.
+        this.app.use(
+            fileUpload({
+                useTempFiles: true,
+                tempFileDir: "/tmp/",
+                createParentPath: true,
+            })
+        );
     }
 
     routes() {
@@ -45,6 +55,7 @@ class Server {
         this.app.use(this.path.buscar, require("../routes/buscar"));
         this.app.use(this.path.categorias, require("../routes/categorias"));
         this.app.use(this.path.productos, require("../routes/productos"));
+        this.app.use(this.path.uploads, require("../routes/uploads"));
         this.app.use(this.path.usuarios, require("../routes/usuarios"));
     }
 
