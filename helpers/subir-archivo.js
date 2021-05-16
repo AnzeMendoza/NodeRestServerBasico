@@ -2,13 +2,11 @@ const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 
 const subirArchivo = (
-    files ,
+    files,
     extensionesPermitidas = ["jpg", "jpge", "gif", "png"],
     carpeta = ""
-) => {
+    ) => {
     return new Promise((resolve, reject) => {
-
-
         const { archivo } = files;
         const nombreCortado = archivo.name.split(".");
         const extension = nombreCortado[nombreCortado.length - 1];
@@ -37,7 +35,6 @@ const subirArchivo = (
         });
     });
 };
-
 
 module.exports = {
     subirArchivo,
