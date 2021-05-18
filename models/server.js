@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dbConecction = require("../database/config");
-const fileUpload = require("express-fileUpload");
+const fileUpload = require("express-fileupload");
 class Server {
     constructor() {
         this.app = express();
